@@ -61,7 +61,6 @@ btnPanier.addEventListener("click", (e) => {
   e.preventDefault();
 
   const choixCouleurs = document.getElementById("colors").value;
-  // const choixForm = idForm.value;
 
   const choixQuantite = document.getElementById("quantity").value;
 
@@ -71,7 +70,24 @@ btnPanier.addEventListener("click", (e) => {
     couleurProduit: choixCouleurs,
   };
 
-  console.log(optionProduit);
-});
+  //        -----      Local Storage        -----          //
 
-//        -----      Local Storage        -----          //
+  let produitLocalStorage = JSON.parse(localStorage.getItem("produit"));
+
+  // fonction ajout produit localStorage
+  const ajoutProduitLocalStorage = () => {
+    produitLocalStorage.push(optionProduit);
+    // transforme en JSON
+    localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
+  };
+
+  // Si il y a des produits dans le local storage
+  if (produitLocalStorage) {
+    ajoutProduitLocalStorage();
+  }
+  // Si il n'y a des produits dans le local storage
+  else {
+    produitLocalStorage = [];
+    ajoutProduitLocalStorage();
+  }
+});
