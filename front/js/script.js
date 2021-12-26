@@ -14,7 +14,6 @@ const productsDisplay = async () => {
   await fetchProduct();
 
   const affichageProduct = document.getElementById("items");
-  // console.log(affichageProduct);
 
   //Utilisation de map pour afficher les produits et leurs attribuer le meme style
   affichageProduct.innerHTML = productData

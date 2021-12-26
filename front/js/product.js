@@ -7,7 +7,7 @@ const urlId = window.location.search;
 // Retire le point d'interogation
 const idRecup = new URLSearchParams(urlId);
 const id = idRecup.get("id");
-console.log(id);
+// console.log(id);
 
 // Récupération de l'objet par l'Id
 let productData = [];
@@ -65,18 +65,17 @@ btnPanier.addEventListener("click", (e) => {
 
   const choixQuantite = document.getElementById("quantity").value;
 
-  const textProductImage = `<img src="${productData.imageUrl}" alt="Photographie d'un canapé">`;
+  const productImage = productData.imageUrl;
   const textProductName = productData.name;
   const textProductPrice = productData.price;
   const textProductDescription = productData.description;
-  const textProductTitle = productData.name;
 
   let optionProduit = {
     idProduit: id,
     nomDuProduit: textProductName,
     quantiteProduit: choixQuantite,
     couleurProduit: choixCouleurs,
-    imageProduit: textProductImage,
+    imageProduit: productImage,
     descriptionProduit: textProductDescription,
     prixProduit: textProductPrice,
   };
@@ -92,15 +91,16 @@ btnPanier.addEventListener("click", (e) => {
     localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
   };
 
-  // // Si il y a des produits dans le local storage
-  // if (produitLocalStorage) {
-  //   ajoutProduitLocalStorage();
-  // }
-  // // Si il n'y a des produits dans le local storage
-  // else {
-  //   produitLocalStorage = [];
-  //   ajoutProduitLocalStorage();
-  // }
+  const popupConfirmation = () => {
+    if (
+      window.confirm(`Votre produit à bien était ajouté au panier.
+Consulter le panier OK ou revenir a l'acceuil ANNULER`)
+    ) {
+      window.location.href = "cart.html";
+    } else {
+      window.location.href = "index.html";
+    }
+  };
 
   if (produitLocalStorage) {
     const resultFind = produitLocalStorage.find(
@@ -113,7 +113,6 @@ btnPanier.addEventListener("click", (e) => {
         parseInt(resultFind.quantiteProduit) + parseInt(choixQuantite);
       resultFind.quantiteProduit = newQuantity;
       localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
-      // console.table(produitLocalStorage);
 
       //Si le produit commandé n'est pas dans le panier
     } else {
@@ -121,11 +120,12 @@ btnPanier.addEventListener("click", (e) => {
       console.table(produitLocalStorage);
       localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
     }
+    popupConfirmation();
     //Si le panier est vide
   } else {
     produitLocalStorage = [];
     produitLocalStorage.push(optionProduit);
-    // console.table(produitLocalStorage);
     localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
+    popupConfirmation();
   }
 });
