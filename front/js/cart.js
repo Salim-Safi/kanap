@@ -314,5 +314,7 @@ form.addEventListener("submit", function (e) {
         window.location = "confirmation.html?id=" + data.orderId;
         localStorage.removeItem("produit");
       });
+  } else {
+    alert("Veuillez ajoutez des produits dans votre panier pour continuer");
   }
 });

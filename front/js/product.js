@@ -102,7 +102,11 @@ Consulter le panier OK ou revenir a l'acceuil ANNULER`)
     }
   };
 
-  if (produitLocalStorage) {
+  if (optionProduit.couleurProduit == "") {
+    alert("Veuillez choisir une couleur");
+  } else if (optionProduit.quantiteProduit == 0) {
+    alert("Veuillez choisir une quantité");
+  } else if (produitLocalStorage) {
     const resultFind = produitLocalStorage.find(
       (el) => el.idProduit === id && el.couleurProduit === choixCouleurs
     );
@@ -113,14 +117,13 @@ Consulter le panier OK ou revenir a l'acceuil ANNULER`)
         parseInt(resultFind.quantiteProduit) + parseInt(choixQuantite);
       resultFind.quantiteProduit = newQuantity;
       localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
-
+      popupConfirmation();
       //Si le produit commandé n'est pas dans le panier
     } else {
       produitLocalStorage.push(optionProduit);
       console.table(produitLocalStorage);
       localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
     }
-    popupConfirmation();
     //Si le panier est vide
   } else {
     produitLocalStorage = [];
