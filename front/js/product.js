@@ -2,12 +2,10 @@
 
 // Récupération de l'id dans l'url
 const urlId = window.location.search;
-// console.log(urlId);
 
 // Retire le point d'interogation
 const idRecup = new URLSearchParams(urlId);
 const id = idRecup.get("id");
-// console.log(id);
 
 // Récupération de l'objet par l'Id
 let productData = [];
@@ -20,6 +18,7 @@ const fetchProduct = async () => {
 
 /////////////////////////                  Affichage Produit               ///////////////////////////////
 
+// recupération des emplpacement dans le html
 const displayProductImage = document.querySelector(".item__img");
 const displayProductName = document.getElementById("title");
 const displayProductPrice = document.getElementById("price");
@@ -27,6 +26,7 @@ const displayProductDescription = document.getElementById("description");
 const displayProductColors = document.getElementById("colors");
 const displayPoductTitle = document.querySelector("title");
 
+// fonction qui affiche les informations du produit
 const productDisplay = async () => {
   await fetchProduct();
 
@@ -50,7 +50,6 @@ const productDisplay = async () => {
   displayProductPrice.innerHTML = textProductPrice;
   displayProductDescription.innerHTML = textProductDescription;
   displayPoductTitle.innerHTML = textProductTitle;
-  // console.log(textProductName);
 };
 productDisplay();
 
@@ -58,6 +57,7 @@ productDisplay();
 
 const btnPanier = document.querySelector("#addToCart");
 
+// fonction au click qui récupère les valeurs sélectionner par l'utilisateur pour l'envoyer a la page panier
 btnPanier.addEventListener("click", (e) => {
   e.preventDefault();
 
@@ -87,10 +87,10 @@ btnPanier.addEventListener("click", (e) => {
   // fonction ajout produit localStorage
   const ajoutProduitLocalStorage = () => {
     produitLocalStorage.push(optionProduit);
-    // transforme en JSON
     localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
   };
 
+  // pop up de confirmation
   const popupConfirmation = () => {
     if (
       window.confirm(`Votre produit à bien était ajouté au panier.
@@ -102,30 +102,32 @@ Consulter le panier OK ou revenir a l'acceuil ANNULER`)
     }
   };
 
+  // vérification que l'utilisateur a bien sélectionner une couleur et une quantité
   if (optionProduit.couleurProduit == "") {
     alert("Veuillez choisir une couleur");
   } else if (optionProduit.quantiteProduit == 0) {
     alert("Veuillez choisir une quantité");
   } else if (produitLocalStorage) {
+    // Si le panier a deja des produit
     const resultFind = produitLocalStorage.find(
       (el) => el.idProduit === id && el.couleurProduit === choixCouleurs
     );
     console.log(resultFind);
-    //Si le produit commandé est déjà dans le panier
     if (resultFind) {
+      //Si le produit commandé est déjà dans le panier alors on incrémente la quantité dans le localstoraage
       let newQuantity =
         parseInt(resultFind.quantiteProduit) + parseInt(choixQuantite);
       resultFind.quantiteProduit = newQuantity;
       localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
       popupConfirmation();
-      //Si le produit commandé n'est pas dans le panier
     } else {
+      // sinon on ajoute le produit dans le localstorage
       produitLocalStorage.push(optionProduit);
       console.table(produitLocalStorage);
       localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
     }
-    //Si le panier est vide
   } else {
+    //Si le panier est vide
     produitLocalStorage = [];
     produitLocalStorage.push(optionProduit);
     localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
