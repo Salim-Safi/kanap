@@ -189,7 +189,7 @@ const validEmail = function (inputEmail) {
 
 const validFirstName = function (inputPrenom) {
   // creation de la regex pour validation prenom
-  let prenomRegExp = new RegExp("^[A-Za-z]{2,20}$", "g");
+  let prenomRegExp = new RegExp("^[A-Za-z_ /è/é/ç]{2,20}$", "g");
 
   // récupération de la balise p
   let prenomMsg = document.querySelector("#firstNameErrorMsg");
@@ -210,7 +210,7 @@ const validFirstName = function (inputPrenom) {
 
 const validName = function (inputNom) {
   // creation de la regex pour validation nom
-  let nomRegExp = new RegExp("^[A-Za-z_ ]{2,20}$", "g");
+  let nomRegExp = new RegExp("^[A-Za-z_ /è/é/ç]{2,20}$", "g");
 
   // récupération de la balise p
   let nomMsg = document.querySelector("#lastNameErrorMsg");
@@ -231,7 +231,7 @@ const validName = function (inputNom) {
 
 const validCity = function (inputCity) {
   // creation de la regex pour validation de la ville
-  let cityRegExp = new RegExp("^[A-Za-z]{2,20}$", "g");
+  let cityRegExp = new RegExp("^[A-Za-z_ /è/é/ç]{2,20}$", "g");
 
   // récupération de la balise city
   let cityMsg = document.querySelector("#cityErrorMsg");
