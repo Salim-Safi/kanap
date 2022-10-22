@@ -8,7 +8,7 @@ console.log(produitLocalStorage);
 
 // Si panier vide
 
-if (produitLocalStorage.length === 0) {
+if (produitLocalStorage === null || produitLocalStorage.length === 0 {
   const panierVide = `
     <div>
     <h2>Il n'y a pas de produit dans votre panier... 😞 </h2>
