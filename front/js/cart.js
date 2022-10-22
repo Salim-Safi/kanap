@@ -8,7 +8,7 @@ console.log(produitLocalStorage);
 
 // Si panier vide
 
-if (produitLocalStorage === null) {
+if (produitLocalStorage.length === 0) {
   const panierVide = `
     <div>
     <h2>Il n'y a pas de produit dans votre panier... 😞 </h2>
@@ -70,6 +70,7 @@ for (let i = 0; i < deleteItem.length; i++) {
       (el) => el.idProduit !== idDelete || el.couleurProduit !== colorDelete
     );
     console.log(produitLocalStorage);
+
     localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
 
     alert("Ce produit a été supprimer du panier");
@@ -86,20 +87,19 @@ function modifyQtt() {
     qttModif[j].addEventListener("change", (event) => {
       event.preventDefault();
 
-      //Selection de l'element à modifier en fonction de son id ET sa couleur
       let quantityModif = produitLocalStorage[j].quantiteProduit;
       let qttModifValue = qttModif[j].valueAsNumber;
+      let idDelete = produitLocalStorage[j].idProduit;
 
       const resultFind = produitLocalStorage.find(
-        (el) => el.qttModifValue !== quantityModif
+        (el) => el.qttModifValue !== quantityModif && idDelete === el.idProduit
       );
-
       resultFind.quantiteProduit = qttModifValue;
       produitLocalStorage[j].quantiteProduit = resultFind.quantiteProduit;
 
+      console.log(resultFind);
       localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
 
-      // refresh rapide
       location.reload();
     });
   }
@@ -120,7 +120,6 @@ function getTotals() {
 
   let productTotalQuantity = document.getElementById("totalQuantity");
   productTotalQuantity.innerHTML = totalQtt;
-  console.log(totalQtt);
 
   // Récupération du prix total
   totalPrice = 0;
