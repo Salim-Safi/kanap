@@ -85,16 +85,12 @@ btnPanier.addEventListener("click", (e) => {
   let produitLocalStorage = JSON.parse(localStorage.getItem("produit"));
 
   // fonction ajout produit localStorage
-  const ajoutProduitLocalStorage = () => {
-    produitLocalStorage.push(optionProduit);
-    localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
-  };
 
   // pop up de confirmation
   const popupConfirmation = () => {
     if (
       window.confirm(`Votre produit à bien était ajouté au panier.
-Consulter le panier OK ou revenir a l'acceuil ANNULER`)
+    Consulter le panier OK ou revenir a l'acceuil ANNULER`)
     ) {
       window.location.href = "cart.html";
     } else {
@@ -112,9 +108,8 @@ Consulter le panier OK ou revenir a l'acceuil ANNULER`)
     const resultFind = produitLocalStorage.find(
       (el) => el.idProduit === id && el.couleurProduit === choixCouleurs
     );
-    console.log(resultFind);
     if (resultFind) {
-      //Si le produit commandé est déjà dans le panier alors on incrémente la quantité dans le localstoraage
+      //Si le produit commandé est déjà dans le panier alors on incrémente la quantité dans le localstorage
       let newQuantity =
         parseInt(resultFind.quantiteProduit) + parseInt(choixQuantite);
       resultFind.quantiteProduit = newQuantity;
@@ -123,8 +118,8 @@ Consulter le panier OK ou revenir a l'acceuil ANNULER`)
     } else {
       // sinon on ajoute le produit dans le localstorage
       produitLocalStorage.push(optionProduit);
-      console.table(produitLocalStorage);
       localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
+      popupConfirmation();
     }
   } else {
     //Si le panier est vide

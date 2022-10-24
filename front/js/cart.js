@@ -8,7 +8,7 @@ console.log(produitLocalStorage);
 
 // Si panier vide
 
-if (produitLocalStorage === null || produitLocalStorage.length === 0 {
+if (produitLocalStorage === null || produitLocalStorage.length === 0) {
   const panierVide = `
     <div>
     <h2>Il n'y a pas de produit dans votre panier... 😞 </h2>
@@ -32,7 +32,7 @@ if (produitLocalStorage === null || produitLocalStorage.length === 0 {
           <div class="cart__item__content">
             <div class="cart__item__content__titlePrice">
               <h2>${product.nomDuProduit}</h2>
-              <p>${product.prixProduit}€</p>
+              <p>${product.prixProduit}</p>
               <p>${product.couleurProduit}</p>
             </div>
             <div class="cart__item__content__settings">
@@ -90,9 +90,13 @@ function modifyQtt() {
       let quantityModif = produitLocalStorage[j].quantiteProduit;
       let qttModifValue = qttModif[j].valueAsNumber;
       let idDelete = produitLocalStorage[j].idProduit;
+      let colorDelete = produitLocalStorage[j].couleurProduit;
 
       const resultFind = produitLocalStorage.find(
-        (el) => el.qttModifValue !== quantityModif && idDelete === el.idProduit
+        (el) =>
+          el.qttModifValue !== quantityModif &&
+          idDelete === el.idProduit &&
+          colorDelete === el.couleurProduit
       );
       resultFind.quantiteProduit = qttModifValue;
       produitLocalStorage[j].quantiteProduit = resultFind.quantiteProduit;
@@ -131,7 +135,6 @@ function getTotals() {
 
   let productTotalPrice = document.getElementById("totalPrice");
   productTotalPrice.innerHTML = totalPrice;
-  console.log(totalPrice);
 }
 getTotals();
 
